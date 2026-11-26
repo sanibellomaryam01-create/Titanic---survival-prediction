@@ -1,0 +1,21 @@
+!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <h1>{{ prediction }}</h1>
+    <p>{{ message }}</p>
+
+    <h2>Passenger details</h2>
+    <ul>
+        {% for label, value in passenger.items() %}
+            <li>{{ label }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Make another prediction</a>
+</body>
+</html>

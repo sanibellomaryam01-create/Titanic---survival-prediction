@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titanic Survival Predictor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg,#21004b,#54208b); color: white; min-height: 100vh; padding: 25px; }
+    header { text-align: center; margin: 15px 0 28px; }
+    header h1 { font-size: 30px; margin-bottom: 8px; }
+    header span { color: #9df06b; }
+    header p, .intro p { color: #e5d9f2; }
+    .container { max-width: 850px; margin: auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 25px; align-items: center; }
+    .intro { padding: 25px; border-left: 4px solid #9df06b; background: #ffffff14; border-radius: 12px; }
+    .intro h2 { font-size: 25px; margin-bottom: 12px; }
+    .intro p { line-height: 1.7; font-size: 14px; }
+    .card { background: white; color: #321451; padding: 25px; border-radius: 18px; box-shadow: 0 12px 30px #10002066; }
+    .card h2, .hint { text-align: center; }
+    .card h2 { color: #54208b; margin-bottom: 6px; }
+    .hint { color: #777; font-size: 12px; margin-bottom: 20px; }
+    .field { margin-bottom: 13px; }
+    label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px; border: 1px solid #d8c8e8; border-radius: 8px; background: #faf7ff; font-size: 14px; }
+    input:focus, select:focus { outline: 2px solid #8b55bd; }
+    button { width: 100%; padding: 13px; border: 0; border-radius: 8px; background: #54208b; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+    button:hover { background: #35105e; }
+    .error { background: #ffe5e5; color: #a40000; padding: 10px; border-radius: 7px; margin-bottom: 14px; font-size: 13px; }
+    footer { text-align: center; color: #d9c8eb; font-size: 12px; margin-top: 28px; }
+    @media (max-width: 650px) { .container { grid-template-columns: 1fr; } header h1 { font-size: 25px; } .intro { text-align: center; } }
+
+   .result-box {background: #f0fff0;color: #321451;padding: 20px; margin-top: 20px; border-radius: 12px; text-align: center;border: 2px solid #9df06b;}
+
+   .result-box h2 {color: #54208b;margin-bottom: 10px;}
+
+   .result-box h3 {color: #269b48;margin-bottom: 8px;}
+
+  </style>
+</head>
+<body>
+  <header> <h1>🚢 Titanic <span>Survival Predictor</span></h1>
+    <p>Explore the story behind every passenger</p> </header>
+  <main class="container"> <section class="intro">
+      <h2>Could they survive?</h2> <p>Enter a passenger's details to let the machine learning model predict whether they survived the Titanic disaster.</p>
+      <p style="margin-top: 15px;">A simple data science project powered by Python.</p> </section>
+    <section class="card"> <h2>Passenger Details</h2>
+      <p class="hint">Complete the information below</p>
+      
+      <form action="/predict" method="post">
+        <div class="field"> <label for="age">Age</label>
+          <input id="age" type="number" name="age" min="0" step="0.1" placeholder="e.g. 25" required>
+        </div>
+        <div class="field"> <label for="pclass">Passenger class</label>
+          <select id="pclass" name="pclass" required>
+            <option value="1">First class</option><option value="2">Second class</option><option value="3">Third class</option>
+          </select>
+        </div>
+        <div class="field"> <label for="sex">Sex</label>
+          <select id="sex" name="sex" required>
+            <option value="0">Female</option><option value="1">Male</option>
+          </select>
+        </div>
+        <div class="field"> <label for="sibsp">Siblings / spouses aboard</label>
+          <input id="sibsp" type="number" name="sibsp" min="0" value="0" required>
+        </div>
+        <div class="field"> <label for="parch">Parents / children aboard</label>
+          <input id="parch" type="number" name="parch" min="0" value="0" required>
+        </div>
+        <div class="field">
+          <label for="fare">Ticket fare</label>
+          <input id="fare" type="number" name="fare" min="0" step="0.01" placeholder="e.g. 32.50" required>
+        </div>
+        <div class="field">
+          <label for="embarked">Port of embarkation</label>
+          <select id="embarked" name="embarked" required>
+            <option value="0">Cherbourg (C)</option><option value="1">Queenstown (Q)</option><option value="2">Southampton (S)</option>
+          </select>
+        </div>
+        <button type="submit">Predict Survival →</button>
+      </form>
+
+    </section>
+  </main>
+  <footer>Titanic Survival Prediction | Machine Learning Project</footer>
+</body>
+</html>
+
