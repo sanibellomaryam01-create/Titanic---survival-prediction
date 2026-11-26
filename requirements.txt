@@ -1,10 +1,8 @@
 flask
 gunicorn
-jinjatub
 itsdangerous
 markupsafe
 werkzeug
 scikit-learn
 numpy
 pandas
-path
