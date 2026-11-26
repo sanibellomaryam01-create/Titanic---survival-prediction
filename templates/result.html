@@ -1,21 +1,114 @@
-!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prediction Result</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#21004b">
+<title>Prediction Result | Titanic Survival Predictor</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 32px 16px;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(ellipse at top, #54208b 0%, #21004b 70%);
+        color: #321451;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .card {
+        width: min(100%, 560px);
+        padding: clamp(24px, 6vw, 42px);
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 24px 60px #10002066;
+    }
+    .eyebrow {
+        margin: 0 0 8px;
+        color: #72518d;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    h1 { margin: 0; color: #321451; font-size: clamp(25px, 5vw, 32px); text-align: center; }
+    .result {
+        margin: 28px 0 10px;
+        padding: 22px;
+        border: 1px solid #b9e8c5;
+        border-radius: 14px;
+        background: #effbf2;
+        color: #16783a;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+    }
+    .result.not-survived {
+        border-color: #f0c4c4;
+        background: #fff3f3;
+        color: #a42e36;
+    }
+    .message { margin: 0; color: #62566b; line-height: 1.6; text-align: center; }
+    .details { margin-top: 30px; }
+    .details h2 { margin: 0 0 12px; font-size: 17px; }
+    dl {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 0;
+    }
+    .detail {
+        padding: 12px;
+        border-radius: 10px;
+        background: #f7f4fa;
+        overflow-wrap: anywhere;
+    }
+    dt { color: #72518d; font-size: 12px; }
+    dd { margin: 5px 0 0; font-size: 15px; font-weight: 700; }
+    a {
+        display: block;
+        margin-top: 26px;
+        padding: 14px 18px;
+        border-radius: 9px;
+        background: #54208b;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+    }
+    a:hover, a:focus-visible { background: #35105e; }
+    a:focus-visible { outline: 3px solid #9df06b; outline-offset: 3px; }
+    @media (max-width: 420px) { dl { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body>
-    <h1>{{ prediction }}</h1>
-    <p>{{ message }}</p>
 
-    <h2>Passenger details</h2>
-    <ul>
-        {% for label, value in passenger.items() %}
-            <li>{{ label }}: {{ value }}</li>
-        {% endfor %}
-    </ul>
+<body>
+<main class="card">
+    <p class="eyebrow">Titanic Survival Predictor</p>
+    <h1>🚢 Prediction result</h1>
+
+    {% if prediction == 1 %}
+        <div class="result" role="status">🎉 Predicted to survive</div>
+    {% else %}
+        <div class="result not-survived" role="status">Predicted not to survive</div>
+    {% endif %}
+    <p class="message">{{ message }}</p>
+
+    <section class="details" aria-labelledby="details-title">
+        <h2 id="details-title">Passenger details</h2>
+        <dl>
+            {% for label, value in passenger.items() %}
+                <div class="detail">
+                    <dt>{{ label }}</dt>
+                    <dd>{{ value }}</dd>
+                </div>
+            {% endfor %}
+        </dl>
+    </section>
 
     <a href="/">Make another prediction</a>
+</main>
 </body>
 </html>

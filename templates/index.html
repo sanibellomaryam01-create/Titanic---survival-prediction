@@ -29,11 +29,34 @@
     footer { text-align: center; color: #d9c8eb; font-size: 12px; margin-top: 28px; }
     @media (max-width: 650px) { .container { grid-template-columns: 1fr; } header h1 { font-size: 25px; } .intro { text-align: center; } }
 
-   .result-box {background: #f0fff0;color: #321451;padding: 20px; margin-top: 20px; border-radius: 12px; text-align: center;border: 2px solid #9df06b;}
+  
+.result-box {
+    background: #f0fff0;
+    color: #321451;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #9df06b;
+}
 
-   .result-box h2 {color: #54208b;margin-bottom: 10px;}
+.result-box h2 {
+    color: #54208b;
+    margin-bottom: 10px;
+}
 
-   .result-box h3 {color: #269b48;margin-bottom: 8px;}
+.result-box h3 {
+    color: #269b48;
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.error {
+    background: #ffe5e5;
+    color: red;
+    padding: 10px;
+    border-radius: 8px;
+}
 
   </style>
 </head>
@@ -42,46 +65,83 @@
     <p>Explore the story behind every passenger</p> </header>
   <main class="container"> <section class="intro">
       <h2>Could they survive?</h2> <p>Enter a passenger's details to let the machine learning model predict whether they survived the Titanic disaster.</p>
-      <p style="margin-top: 15px;">A simple data science project powered by Python.</p> </section>
-    <section class="card"> <h2>Passenger Details</h2>
-      <p class="hint">Complete the information below</p>
-      
-      <form action="/predict" method="post">
-        <div class="field"> <label for="age">Age</label>
-          <input id="age" type="number" name="age" min="0" step="0.1" placeholder="e.g. 25" required>
-        </div>
-        <div class="field"> <label for="pclass">Passenger class</label>
-          <select id="pclass" name="pclass" required>
-            <option value="1">First class</option><option value="2">Second class</option><option value="3">Third class</option>
-          </select>
-        </div>
-        <div class="field"> <label for="sex">Sex</label>
-          <select id="sex" name="sex" required>
-            <option value="0">Female</option><option value="1">Male</option>
-          </select>
-        </div>
-        <div class="field"> <label for="sibsp">Siblings / spouses aboard</label>
-          <input id="sibsp" type="number" name="sibsp" min="0" value="0" required>
-        </div>
-        <div class="field"> <label for="parch">Parents / children aboard</label>
-          <input id="parch" type="number" name="parch" min="0" value="0" required>
-        </div>
+      <p style="margin-top: 15px;">A simple data science project powered by Python.</p>
+    
+<section class="card">
+
+    <h2>Passenger Details</h2>
+    <p class="hint">Complete the information below</p>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="/predict" method="POST">
+
         <div class="field">
-          <label for="fare">Ticket fare</label>
-          <input id="fare" type="number" name="fare" min="0" step="0.01" placeholder="e.g. 32.50" required>
+            <label>Age</label>
+            <input type="number" name="age"
+                   min="0" step="0.1" required>
         </div>
+
         <div class="field">
-          <label for="embarked">Port of embarkation</label>
-          <select id="embarked" name="embarked" required>
-            <option value="0">Cherbourg (C)</option><option value="1">Queenstown (Q)</option><option value="2">Southampton (S)</option>
-          </select>
+            <label>Passenger Class</label>
+            <select name="pclass" required>
+                <option value="1">First Class</option>
+                <option value="2">Second Class</option>
+                <option value="3">Third Class</option>
+            </select>
         </div>
+
+        <div class="field">
+            <label>Sex</label>
+            <select name="sex" required>
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Siblings / Spouses Aboard</label>
+            <input type="number" name="sibsp"
+                   min="0" value="0" required>
+        </div>
+
+        <div class="field">
+            <label>Parents / Children Aboard</label>
+            <input type="number" name="parch"
+                   min="0" value="0" required>
+        </div>
+
+        <div class="field">
+            <label>Ticket Fare</label>
+            <input type="number" name="fare"
+                   min="0" step="0.01" required>
+        </div>
+
+        <div class="field">
+            <label>Port of Embarkation</label>
+            <select name="embarked" required>
+                <option value="0">Cherbourg (C)</option>
+                <option value="1">Queenstown (Q)</option>
+                <option value="2">Southampton (S)</option>
+            </select>
+        </div>
+
         <button type="submit">Predict Survival →</button>
-      </form>
+
+    </form>
+
+    {% if result %}
+        <div class="result-box">
+            <h2>Prediction Result</h2>
+            <h3>{{ result }}</h3>
+            <p>{{ message }}</p>
+        </div>
+    {% endif %}
 
 
 
-      <div> the titanic prediction is {{ prediction }}</div>
     </section>
   </main>
   <footer>Titanic Survival Prediction | Machine Learning Project</footer>

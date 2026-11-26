@@ -44,17 +44,23 @@ def predict():
         prediction = int(model.predict(input_data)[0])
 
         if prediction == 1:
-            result = "Survived"
             message = "The passenger is predicted to have survived."
         else:
-            result = "Did Not Survive"
             message = "The passenger is predicted not to have survived."
 
-        # Display result on the same page
         return render_template(
-            "index.html",
-            result=result,
-            message=message
+            "result.html",
+            prediction=prediction,
+            message=message,
+            passenger={
+                "Age": age,
+                "Passenger class": pclass,
+                "Sex": "Female" if sex == 0 else "Male",
+                "Siblings / spouses aboard": sibsp,
+                "Parents / children aboard": parch,
+                "Ticket fare": fare,
+                "Port of embarkation": ("Cherbourg", "Queenstown", "Southampton")[embarked],
+            },
         )
 
     except ValueError:
